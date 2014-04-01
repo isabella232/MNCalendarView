@@ -119,7 +119,8 @@
   
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   formatter.calendar = self.calendar;
-  
+  formatter.locale = self.locale ?: formatter.locale;
+
   self.weekdaySymbols = formatter.shortWeekdaySymbols;
   
   [self.collectionView reloadData];

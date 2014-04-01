@@ -23,6 +23,7 @@
 @property(nonatomic,assign) id<MNCalendarViewDelegate> delegate;
 
 @property(nonatomic,strong) NSCalendar *calendar;
+@property(nonatomic,strong) NSLocale   *locale;
 @property(nonatomic,copy)   NSDate     *fromDate;
 @property(nonatomic,copy)   NSDate     *toDate;
 @property(nonatomic,copy)   NSDate     *selectedDate;
