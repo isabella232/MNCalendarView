@@ -101,6 +101,11 @@
   [self.monthFormatter setDateFormat:@"MMMM yyyy"];
 }
 
+- (void)setLocale:(NSLocale *)locale {
+    _locale = locale;
+    self.monthFormatter.locale = locale;
+}
+
 - (void)setSelectedDate:(NSDate *)selectedDate {
   _selectedDate = [selectedDate mn_beginningOfDay:self.calendar];
 }
