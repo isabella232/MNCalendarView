@@ -46,9 +46,11 @@
     }
   }
 
-  if (targetLayoutAttributes) {
-    return targetLayoutAttributes.frame.origin;
-  }
+  // Disabled.
+  // Causes the component to scroll to top inadvertently in certain cases.
+  //  if (targetLayoutAttributes) {
+  //    return targetLayoutAttributes.frame.origin;
+  //  }
 
   return CGPointMake(proposedContentOffset.x, proposedContentOffset.y);
 }
