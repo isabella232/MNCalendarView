@@ -114,7 +114,9 @@
 				39075412179F6DC5002AC1EC /* Frameworks */,
 				39075411179F6DC5002AC1EC /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		39075411179F6DC5002AC1EC /* Products */ = {
 			isa = PBXGroup;

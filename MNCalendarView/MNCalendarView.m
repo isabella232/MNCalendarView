@@ -125,8 +125,14 @@
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   formatter.calendar = self.calendar;
   formatter.locale = self.locale ?: formatter.locale;
-
-  self.weekdaySymbols = formatter.shortWeekdaySymbols;
+  
+    NSArray *weekdaySymbols = formatter.shortWeekdaySymbols;
+  NSMutableArray *fixedWeekdaySymbols = [[NSMutableArray alloc] init];
+  for (NSInteger index = 0; index < weekdaySymbols.count; index++) {
+    [fixedWeekdaySymbols addObject:weekdaySymbols[(index + self.calendar.firstWeekday - 1) % weekdaySymbols.count]];
+  }
+  
+  self.weekdaySymbols = [fixedWeekdaySymbols copy];
   
   [self.collectionView reloadData];
 }
@@ -151,7 +157,7 @@
                 fromDate:date];
   
   return
-    [[date mn_dateWithDay:-((components.weekday - 1) % self.daysInWeek) calendar:self.calendar] dateByAddingTimeInterval:MN_DAY];
+    [[date mn_dateWithDay:-((components.weekday - 1) % self.daysInWeek) calendar:self.calendar] dateByAddingTimeInterval:MN_DAY * self.calendar.firstWeekday];
 }
 
 - (NSDate *)lastVisibleDateOfMonth:(NSDate *)date {
