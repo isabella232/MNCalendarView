@@ -43,7 +43,7 @@
 - (void)commonInitWithCalendar:(NSCalendar *)calendar {
   self.calendar   = (calendar ?: NSCalendar.currentCalendar);
   self.fromDate   = [NSDate.date mn_beginningOfDay:self.calendar];
-  self.toDate     = [self.fromDate dateByAddingTimeInterval:MN_YEAR * 4];
+  self.toDate     = [self.fromDate mn_dateByAdding:4 unit:NSCalendarUnitYear calendar:self.calendar];
   self.daysInWeek = 7;
   
   self.headerViewClass  = MNCalendarHeaderView.class;
