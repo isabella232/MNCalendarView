@@ -177,9 +177,9 @@
     [self.calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit
                      fromDate:date];
   
-  return
-    [date mn_dateWithDay:components.day + (self.daysInWeek - 1) - ((components.weekday - 1) % self.daysInWeek)
-                calendar:self.calendar];
+  NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+  offsetComponents.day = (self.calendar.firstWeekday - components.weekday - 1 + self.daysInWeek) % self.daysInWeek;
+  return [self.calendar dateByAddingComponents:offsetComponents toDate:date options:0];
 }
 
 - (void)applyConstraints {
