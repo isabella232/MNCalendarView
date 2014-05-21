@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define MN_MINUTE 60.f
-#define MN_HOUR   MN_MINUTE * 60.f
-#define MN_DAY    MN_HOUR * 24.f
-
 @protocol MNCalendarViewDelegate;
 
 @interface MNCalendarView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
