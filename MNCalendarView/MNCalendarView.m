@@ -16,6 +16,8 @@
 
 @interface MNCalendarView() <UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property(nonatomic,strong,readwrite) NSCalendar *calendar;
+
 @property(nonatomic,strong,readwrite) UICollectionView *collectionView;
 @property(nonatomic,strong,readwrite) UICollectionViewFlowLayout *layout;
 
@@ -37,8 +39,8 @@
 
 @implementation MNCalendarView
 
-- (void)commonInit {
-  self.calendar   = NSCalendar.currentCalendar;
+- (void)commonInitWithCalendar:(NSCalendar *)calendar {
+  self.calendar   = (calendar ?: NSCalendar.currentCalendar);
   self.fromDate   = [NSDate.date mn_beginningOfDay:self.calendar];
   self.toDate     = [self.fromDate dateByAddingTimeInterval:MN_YEAR * 4];
   self.daysInWeek = 7;
@@ -54,17 +56,21 @@
   [self reloadData];
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame calendar:(NSCalendar *)calendar {
   if (self = [super initWithFrame:frame]) {
-    [self commonInit];
+    [self commonInitWithCalendar:calendar];
   }
   return self;
+}
+
+- (id)initWithFrame:(CGRect)frame {
+  return [self initWithFrame:frame calendar:nil];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
   self = [super initWithCoder: aDecoder];
   if ( self ) {
-    [self commonInit];
+    [self commonInitWithCalendar:nil];
   }
   
   return self;
@@ -126,7 +132,9 @@
   formatter.calendar = self.calendar;
   formatter.locale = self.locale ?: formatter.locale;
   
-    NSArray *weekdaySymbols = formatter.shortWeekdaySymbols;
+  
+  NSLog(@"XXX self.calendar.firstWeekday: %lu, %p", (unsigned long)self.calendar.firstWeekday, self.calendar);
+  NSArray *weekdaySymbols = formatter.shortWeekdaySymbols;
   NSMutableArray *fixedWeekdaySymbols = [[NSMutableArray alloc] init];
   for (NSInteger index = 0; index < weekdaySymbols.count; index++) {
     [fixedWeekdaySymbols addObject:weekdaySymbols[(index + self.calendar.firstWeekday - 1) % weekdaySymbols.count]];
@@ -155,6 +163,8 @@
   NSDateComponents *components =
     [self.calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit
                 fromDate:date];
+  
+  NSLog(@"self.calendar.firstWeekday: %lu, %p", (unsigned long)self.calendar.firstWeekday, self.calendar);
   
   return
     [[date mn_dateWithDay:-((components.weekday - 1) % self.daysInWeek) calendar:self.calendar] dateByAddingTimeInterval:MN_DAY * self.calendar.firstWeekday];

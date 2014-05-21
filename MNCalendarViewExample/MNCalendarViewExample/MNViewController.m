@@ -33,8 +33,7 @@
   
   self.currentDate = [NSDate date];
 
-  self.calendarView = [[MNCalendarView alloc] initWithFrame:self.view.bounds];
-  self.calendarView.calendar = self.calendar;
+  self.calendarView = [[MNCalendarView alloc] initWithFrame:self.view.bounds calendar:self.calendar];
   self.calendarView.selectedDate = [NSDate date];
   self.calendarView.delegate = self;
   self.calendarView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
