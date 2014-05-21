@@ -11,7 +11,6 @@
 #define MN_MINUTE 60.f
 #define MN_HOUR   MN_MINUTE * 60.f
 #define MN_DAY    MN_HOUR * 24.f
-#define MN_WEEK   MN_DAY * 7.f
 
 @protocol MNCalendarViewDelegate;
 

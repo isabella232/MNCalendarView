@@ -42,6 +42,12 @@
     case NSCalendarUnitQuarter:
       dateComponents.quarter = constant;
       break;
+    case NSCalendarUnitWeekOfYear:
+      dateComponents.weekOfYear = constant;
+      break;
+    case NSCalendarUnitWeekOfMonth:
+      dateComponents.weekOfMonth = constant;
+      break;
     default:
       NSAssert(NO, @"unknown calendar unit");
   }

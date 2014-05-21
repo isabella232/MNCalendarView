@@ -62,7 +62,7 @@
 		39A860A517A2EFE4003F6F4A /* MNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNAppDelegate.h; sourceTree = "<group>"; };
 		39A860A617A2EFE4003F6F4A /* MNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MNAppDelegate.m; sourceTree = "<group>"; };
 		39A860AE17A2EFE4003F6F4A /* MNViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNViewController.h; sourceTree = "<group>"; };
-		39A860AF17A2EFE4003F6F4A /* MNViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MNViewController.m; sourceTree = "<group>"; };
+		39A860AF17A2EFE4003F6F4A /* MNViewController.m */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = MNViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		39A860B117A2EFE5003F6F4A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		39A860B717A2EFE5003F6F4A /* MNCalendarViewExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MNCalendarViewExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A860B817A2EFE5003F6F4A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
