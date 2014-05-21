@@ -133,7 +133,6 @@
   formatter.locale = self.locale ?: formatter.locale;
   
   
-  NSLog(@"XXX self.calendar.firstWeekday: %lu, %p", (unsigned long)self.calendar.firstWeekday, self.calendar);
   NSArray *weekdaySymbols = formatter.shortWeekdaySymbols;
   NSMutableArray *fixedWeekdaySymbols = [[NSMutableArray alloc] init];
   for (NSInteger index = 0; index < weekdaySymbols.count; index++) {
@@ -162,12 +161,13 @@
   
   NSDateComponents *components =
     [self.calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit
-                fromDate:date];
+                     fromDate:date];
   
-  NSLog(@"self.calendar.firstWeekday: %lu, %p", (unsigned long)self.calendar.firstWeekday, self.calendar);
-  
-  return
-    [[date mn_dateWithDay:-((components.weekday - 1) % self.daysInWeek) calendar:self.calendar] dateByAddingTimeInterval:MN_DAY * self.calendar.firstWeekday];
+  NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+  offsetComponents.day = 0 - components.weekday + self.calendar.firstWeekday;
+  if (offsetComponents.day > 0)
+    offsetComponents.day -= self.daysInWeek;
+  return [self.calendar dateByAddingComponents:offsetComponents toDate:date options:0];
 }
 
 - (NSDate *)lastVisibleDateOfMonth:(NSDate *)date {
