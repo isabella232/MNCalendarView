@@ -18,4 +18,6 @@
 
 - (instancetype)mn_dateWithDay:(NSUInteger)day calendar:(NSCalendar *)calendar;
 
+- (instancetype)mn_dateByAdding:(NSInteger)constant unit:(NSCalendarUnit)calendarUnit calendar:(NSCalendar *)calendar;
+
 @end

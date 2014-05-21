@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 min. All rights reserved.
 //
 
+#import "NSDateComponents+MNAdditions.h"
 #import "NSDate+MNAdditions.h"
 
 @implementation NSDate (MNAdditions)
@@ -53,6 +54,13 @@
   [components setDay:day];
   
   return [calendar dateFromComponents:components];
+}
+
+- (instancetype)mn_dateByAdding:(NSInteger)constant unit:(NSCalendarUnit)calendarUnit calendar:(NSCalendar *)calendar
+{
+  return [calendar dateByAddingComponents:[NSDateComponents mn_dateComponentsWithConstant:constant unit:calendarUnit]
+                                   toDate:self
+                                  options:0];
 }
 
 @end

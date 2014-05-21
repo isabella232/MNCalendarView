@@ -13,6 +13,7 @@
 #import "MNCalendarHeaderView.h"
 #import "MNFastDateEnumeration.h"
 #import "NSDate+MNAdditions.h"
+#import "NSDateComponents+MNAdditions.h"
 
 @interface MNCalendarView() <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -132,14 +133,7 @@
   formatter.calendar = self.calendar;
   formatter.locale = self.locale ?: formatter.locale;
   
-  
-  NSArray *weekdaySymbols = formatter.shortWeekdaySymbols;
-  NSMutableArray *fixedWeekdaySymbols = [[NSMutableArray alloc] init];
-  for (NSInteger index = 0; index < weekdaySymbols.count; index++) {
-    [fixedWeekdaySymbols addObject:weekdaySymbols[(index + self.calendar.firstWeekday - 1) % weekdaySymbols.count]];
-  }
-  
-  self.weekdaySymbols = [fixedWeekdaySymbols copy];
+  self.weekdaySymbols = formatter.shortWeekdaySymbols;
   
   [self.collectionView reloadData];
 }
@@ -163,11 +157,13 @@
     [self.calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit
                      fromDate:date];
   
-  NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-  offsetComponents.day = 0 - components.weekday + self.calendar.firstWeekday;
-  if (offsetComponents.day > 0)
-    offsetComponents.day -= self.daysInWeek;
-  return [self.calendar dateByAddingComponents:offsetComponents toDate:date options:0];
+  NSInteger offsetDays = 0 - components.weekday + self.calendar.firstWeekday;
+  if (offsetDays > 0)
+    offsetDays -= self.daysInWeek;
+  
+  return [self.calendar dateByAddingComponents:[NSDateComponents mn_dateComponentsWithConstant:offsetDays unit:NSCalendarUnitDay]
+                                        toDate:date
+                                       options:0];
 }
 
 - (NSDate *)lastVisibleDateOfMonth:(NSDate *)date {
@@ -177,9 +173,11 @@
     [self.calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit
                      fromDate:date];
   
-  NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-  offsetComponents.day = (self.calendar.firstWeekday - components.weekday - 1 + self.daysInWeek) % self.daysInWeek;
-  return [self.calendar dateByAddingComponents:offsetComponents toDate:date options:0];
+  NSInteger offsetDays = (self.calendar.firstWeekday - components.weekday - 1 + self.daysInWeek) % self.daysInWeek;
+  return [self.calendar dateByAddingComponents:[NSDateComponents mn_dateComponentsWithConstant:offsetDays
+                                                                                          unit:NSCalendarUnitDay]
+                                        toDate:date
+                                       options:0];
 }
 
 - (void)applyConstraints {
@@ -260,7 +258,7 @@
                                                 forIndexPath:indexPath];
     
     cell.backgroundColor = self.collectionView.backgroundColor;
-    cell.titleLabel.text = self.weekdaySymbols[indexPath.item];
+    cell.titleLabel.text = self.weekdaySymbols[(indexPath.item + self.calendar.firstWeekday - 1) % self.daysInWeek];
     cell.separatorColor = self.separatorColor;
     return cell;
   }
