@@ -68,4 +68,20 @@
   return YES;
 }
 
+- (BOOL)calendarView:(MNCalendarView *)calendarView shouldCustomCellWithDate:(NSDate *)date {
+  NSDateComponents *targetDate = [self.calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:date];
+  NSDateComponents *today = [self.calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
+  return targetDate.year == today.year &&
+        targetDate.month == today.month &&
+          targetDate.day == today.day;
+}
+
+- (UIColor *)calendarView:(MNCalendarView *)calendarView customBackgroundWithDate:(NSDate *)date {
+  return [UIColor redColor];
+
+}
+
+- (NSString *)calendarView:(MNCalendarView *)calendarView customBottomTextWithDate:(NSDate *)date {
+  return @"Today";
+}
 @end

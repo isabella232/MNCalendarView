@@ -41,6 +41,7 @@ NSString *const MNCalendarViewCellIdentifier = @"MNCalendarViewCellIdentifier";
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.userInteractionEnabled = NO;
     self.titleLabel.backgroundColor = [UIColor clearColor];
+    self.titleLabel.numberOfLines = 0;
     
     [self.contentView addSubview:self.titleLabel];
     
