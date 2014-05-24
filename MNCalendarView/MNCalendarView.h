@@ -49,4 +49,5 @@
 - (BOOL)calendarView:(MNCalendarView *)calendarView shouldCustomCellWithDate:(NSDate *)date;
 - (UIColor *)calendarView:(MNCalendarView *)calendarView customBackgroundWithDate:(NSDate *)date;
 - (NSString *)calendarView:(MNCalendarView *)calendarView customBottomTextWithDate:(NSDate *)date;
+- (UIColor *)calendarView:(MNCalendarView *)calendarView customTextColorWithDate:(NSDate *)date;
 @end

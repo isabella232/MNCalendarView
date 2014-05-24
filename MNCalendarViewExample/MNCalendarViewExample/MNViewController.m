@@ -84,4 +84,8 @@
 - (NSString *)calendarView:(MNCalendarView *)calendarView customBottomTextWithDate:(NSDate *)date {
   return @"Today";
 }
+
+- (UIColor *)calendarView:(MNCalendarView *)calendarView customTextColorWithDate:(NSDate *)date {
+  return [UIColor whiteColor];
+}
 @end
