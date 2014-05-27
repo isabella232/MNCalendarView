@@ -290,6 +290,20 @@
     [cell setSelected:[date isEqualToDate:self.selectedDate]];
   }
   
+  if ([self.delegate respondsToSelector:@selector(calendarView:shouldCustomCellWithDate:)]) {
+    if ([self.delegate calendarView:self shouldCustomCellWithDate:date]) {
+      if ([self.delegate respondsToSelector:@selector(calendarView:customBackgroundWithDate:)]) {
+        cell.backgroundColor = [self.delegate calendarView:self customBackgroundWithDate:date];
+      }
+      if ([self.delegate respondsToSelector:@selector(calendarView:customBottomTextWithDate:)]) {
+        cell.titleLabel.text = [NSString stringWithFormat:@"%@\n%@", cell.titleLabel.text, [self.delegate calendarView:self customBottomTextWithDate:date]];
+      }
+      if ([self.delegate respondsToSelector:@selector(calendarView:customTextColorWithDate:)]) {
+        cell.titleLabel.textColor = [self.delegate calendarView:self customTextColorWithDate:date];
+      }
+    }
+  }
+  
   return cell;
 }
 
