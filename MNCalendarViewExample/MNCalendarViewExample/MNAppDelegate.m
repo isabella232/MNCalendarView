@@ -18,6 +18,7 @@
 
   UITabBarController *controller = [[UITabBarController alloc] init];
   controller.viewControllers = @[
+                                 [[MNViewController alloc] initWithCalendar:[NSCalendar currentCalendar] title:@"Current"],
                                  [[MNViewController alloc] initWithCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] title:@"Gregorian"],
                                  [[MNViewController alloc] initWithCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSHebrewCalendar] title:@"Hebrew"],
                                  [[MNViewController alloc] initWithCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSIslamicCalendar] title:@"Islamic"],

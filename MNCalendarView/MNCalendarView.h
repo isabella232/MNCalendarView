@@ -8,12 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define MN_MINUTE 60.f
-#define MN_HOUR   MN_MINUTE * 60.f
-#define MN_DAY    MN_HOUR * 24.f
-#define MN_WEEK   MN_DAY * 7.f
-#define MN_YEAR   MN_DAY * 365.f
-
 @protocol MNCalendarViewDelegate;
 
 @interface MNCalendarView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
@@ -22,7 +16,7 @@
 
 @property(nonatomic,assign) id<MNCalendarViewDelegate> delegate;
 
-@property(nonatomic,strong) NSCalendar *calendar;
+@property(nonatomic,strong,readonly) NSCalendar *calendar;
 @property(nonatomic,strong) NSLocale   *locale;
 @property(nonatomic,copy)   NSDate     *fromDate;
 @property(nonatomic,copy)   NSDate     *toDate;
@@ -33,6 +27,8 @@
 @property(nonatomic,strong) Class headerViewClass;
 @property(nonatomic,strong) Class weekdayCellClass;
 @property(nonatomic,strong) Class dayCellClass;
+
+- (instancetype)initWithFrame:(CGRect)frame calendar:(NSCalendar *)calendar;
 
 - (void)reloadData;
 - (void)registerUICollectionViewClasses; 

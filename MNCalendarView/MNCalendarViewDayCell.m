@@ -37,7 +37,7 @@ NSString *const MNCalendarViewDayCellIdentifier = @"MNCalendarViewDayCellIdentif
                    fromDate:self.month];
   
   self.weekday = components.weekday;
-  self.titleLabel.text = [NSString stringWithFormat:@"%d", components.day];
+  self.titleLabel.text = [NSString stringWithFormat:@"%ld", (long)components.day];
   self.enabled = monthComponents.month == components.month;
   
   [self setNeedsDisplay];
@@ -62,7 +62,7 @@ NSString *const MNCalendarViewDayCellIdentifier = @"MNCalendarViewDayCellIdentif
   
   CGSize size = self.bounds.size;
   
-  if (self.weekday != 7) {
+  if ((self.weekday - self.calendar.firstWeekday + 1) % 7 != 0) {
     CGFloat pixel = 1.f / [UIScreen mainScreen].scale;
     MNContextDrawLine(context,
                       CGPointMake(size.width - pixel, pixel),

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 min. All rights reserved.
 //
 
+#import <MNCalendarView/NSDate+MNAdditions.h>
 #import "MNViewController.h"
 
 @interface MNViewController () <MNCalendarViewDelegate>
@@ -13,6 +14,9 @@
 @property(nonatomic,strong) NSCalendar     *calendar;
 @property(nonatomic,strong) MNCalendarView *calendarView;
 @property(nonatomic,strong) NSDate         *currentDate;
+
+@property(strong) NSDate *startForbiddenDate;
+@property(strong) NSDate *endForbiddenDate;
 
 @end
 
@@ -33,12 +37,14 @@
   
   self.currentDate = [NSDate date];
 
-  self.calendarView = [[MNCalendarView alloc] initWithFrame:self.view.bounds];
-  self.calendarView.calendar = self.calendar;
+  self.calendarView = [[MNCalendarView alloc] initWithFrame:self.view.bounds calendar:self.calendar];
   self.calendarView.selectedDate = [NSDate date];
   self.calendarView.delegate = self;
   self.calendarView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
   self.calendarView.backgroundColor = UIColor.whiteColor;
+  
+  self.startForbiddenDate = [self.currentDate mn_dateByAdding:1 unit:NSCalendarUnitWeekOfYear calendar:self.calendar];
+  self.endForbiddenDate = [self.currentDate mn_dateByAdding:2 unit:NSCalendarUnitWeekOfYear calendar:self.calendar];
   
   [self.view addSubview:self.calendarView];
 }
@@ -61,11 +67,7 @@
 - (BOOL)calendarView:(MNCalendarView *)calendarView shouldSelectDate:(NSDate *)date {
   NSTimeInterval timeInterval = [date timeIntervalSinceDate:self.currentDate];
 
-  if (timeInterval > MN_WEEK && timeInterval < (MN_WEEK * 2)) {
-    return NO;
-  }
-
-  return YES;
+  return ([date compare:self.startForbiddenDate] != NSOrderedDescending || [date compare:self.endForbiddenDate] != NSOrderedAscending);
 }
 
 @end
